@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: Shell src block
+# key: <sh-s
+# --
+#+name: shell_
+#+begin_src sh :results silent
+$1
+#+end_src

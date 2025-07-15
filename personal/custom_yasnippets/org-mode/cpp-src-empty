@@ -1,0 +1,6 @@
+# key: <cp
+# name: C++ New Empty src block
+# --
+#+begin_src cpp
+$1
+#+end_src

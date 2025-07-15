@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: C++ Tangle src block
+# key: <tangle-s
+# --
+#+name: tangle
+#+begin_src cpp :eval true :mkdirp yes :tangle src/main.cpp :results output
+// Begin Tangled program:
+$1
+#+end_src

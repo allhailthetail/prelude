@@ -1,0 +1,105 @@
+#+title: Main Program
+#+author:
+
+#+startup: overview indent hideblocks entitiespretty
+#+property: header-args:sh :results output
+#+property: header-args:cpp :noeval :noweb yes
+#+setupfile: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+
+* Notes
+- Notes go here...
+
+* Convenience Scripts
+#+name: sh_example
+#+begin_src sh :results silent
+echo "Example Shell Script..."
+#+end_src
+
+* Source Code
+** Include Block
+
+[[https://cplusplus.com/reference/][C++ Library Reference]]
+
+#+name: include
+#+begin_src cpp
+// Imported libraries and headers:
+#include <iostream>
+#+end_src
+
+** Methods
+** Main
+
+[[file:src/main.cpp][GOTO: main.cpp]]
+
+#+name: fn_main
+#+begin_src cpp :eval true :mkdirp yes :tangle src/main.cpp :results output :comments noweb
+<<include>>
+
+ // Begin Program:
+int main() {
+
+    // Exit Successfully
+    return 0;
+ }
+#+end_src
+
+* Compile Program
+
+[[file:Makefile][GOTO: Makefile]]
+
+#+name: make
+#+begin_src sh :results silent
+# make                     # Make All (no debug)
+make debug && make build   # Make (with debug)
+#+end_src
+
+#+name: clean
+#+begin_src sh :results silent
+make clean
+#+end_src
+
+* GDB Scripts
+
+[[file:main.gdb][GOTO: main.gdb]]
+
+#+name: gdb
+#+begin_src gdb :noeval :mkdirp yes :tangle debug/main.gdb
+####################################
+# Turn on logging:
+set logging on
+set logging file debug/debug_log.txt
+set logging overwrite on
+
+# Don't try to download debug info:
+set debuginfod enabled off
+
+# Enable Graphical mode:
+# tui enable
+
+# Load program:
+file bin/main
+
+# Script Begins:
+echo \n\nBegin Debug Script:\n\n
+####################################
+# Execute via:
+# gdb -x <script.gdb>
+#
+# (or)
+#
+# gdb <ret>
+#  > source <script.gdb>
+####################################
+
+# Insert Commands after this line:
+break main
+run
+#+end_src
+
+* Run
+#+name: sh_run_main
+#+begin_src sh :results output
+./main
+#+end_src
+
+#+RESULTS: sh_run_main

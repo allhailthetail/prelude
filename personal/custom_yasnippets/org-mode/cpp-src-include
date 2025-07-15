@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: C++ #include src_block
+# key: <cp-s-include
+# --
+#+name: include
+#+begin_src cpp
+// Imported libraries:
+#include <$1>
+#+end_src

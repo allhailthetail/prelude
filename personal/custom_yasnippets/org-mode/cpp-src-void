@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: C++ main src_block
+# key: <cp-s-main
+# --
+#+name: main
+#+begin_src cpp
+// ~fn_description~
+void fn(int argc, char *argv[])
+{
+
+return 0; // Main Exited Successfully
+}
+#+end_src

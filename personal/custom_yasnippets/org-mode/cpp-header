@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: C++ Literate Programming Org Header
+# key: <cp-header
+# --
+#+property: header-args:sh :results output
+#+property: header-args:cpp :noeval :noweb yes

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: C++ function def - Org Src Block
+# key: <cp-s-fun
+# --
+#+name: fn_
+#+begin_src cpp
+// Description: $1
+${2:type} ${3:name}(${4:args})${5: const}
+#+end_src

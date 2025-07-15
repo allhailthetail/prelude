@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: GPP Compile
+# key: <gpp-s
+# --
+#+name: gpp_compile
+#+begin_src sh :results silent
+# Get Base Filename of .cpp file:
+base="${prog_name%.cpp}"
+
+# Compile with g++ using custom flags:
+#   NOTE: This compile command is optimized for debugging purposes...
+g++ $prog_name -o "$base" \
+-std=c++17 \
+-Wall \
+-Werror \
+-DLOCAL \
+-g
+#+end_src

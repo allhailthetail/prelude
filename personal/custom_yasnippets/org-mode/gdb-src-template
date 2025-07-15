@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# name: Org GDB Template
+# key: <gdb-s
+# --
+#+name: gdb
+#+begin_src gdb :noeval :tangle script.gdb
+  ####################################
+  # Turn on logging:
+  set logging on
+  set logging overwrite on
+
+  # Don't try to download debug info:
+  set debuginfod enabled off
+
+  # Enable Graphical mode:
+  # tui enable
+
+  # Load program:
+  file bin/main
+
+  # Script Begins:
+  echo \n\nBegin Debug Script:\n\n
+  ####################################
+  # Execute via:
+  # gdb -x <script.gdb>
+  #
+  # (or)
+  #
+  # gdb <ret>
+  #  > source <script.gdb>
+  ####################################
+
+  # Insert Commands after this line:
+  break main
+  run
+#+end_src

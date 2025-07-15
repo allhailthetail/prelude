@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: C++ main src_block
+# key: <cp-s-main
+# --
+#+name: fn_main
+#+begin_src cpp :eval true :mkdirp yes :tangle src/main.cpp :results output
+<<include>>
+
+// Begin Program:
+int main(${1:int argc, char *argv[]}) {
+    $0
+
+    // Exit Successfully
+    return 0;
+}
+#+end_src
