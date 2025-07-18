@@ -11,20 +11,31 @@
 ;;; Code:
 
 ;; Install required packages if missing
-(dolist (pkg '(ess ob-rust))
+(dolist (pkg '(ess ob-rust org-appear org-modern))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
 ;; Fix indentation Issue with Yasnippet and Org src blocks
 (setq org-edit-src-content-indentation 0)
 
+;; General Org UI tweaks:
+
+;; Hide emphasis markers unless dwelling on them
+(setq org-hide-emphasis-markers t
+      org-appear-auto-emphasis t
+      org-appear-autosubmarkers t
+      org-appear-delay 2)
+;; Disable subscript/superscript garbage
+(setq org-use-sub-superscripts nil)
+
 ;; Minor Modes to Disable on Startup:
-(defun my-prelude/org-disable-on-startup ()
+(defun my-prelude/org-def-minor-modes ()
        "Disable unnecessary minor modes on startup."
        (flycheck-mode -1)
        (flyspell-mode -1)
-       (whitespace-mode -1))
-(add-hook 'org-mode-hook #'my-prelude/org-disable-on-startup)
+       (whitespace-mode -1)
+       (org-modern-mode 1))
+(add-hook 'org-mode-hook #'my-prelude/org-def-minor-modes)
 
 ;; Support these languages explicitly:
 (org-babel-do-load-languages
@@ -37,23 +48,6 @@
                  ;;   cargo install rust-script
    (R . t)))     ;; R (via ESS or base R)
 
-;; Don't prompt me every damn time:
-;; NOTE:
-;;   Many might argue that this is a dangerous thing to enable.
-;;   Too bad...
-;; (defun my-prelude/org-confirm-babel-evaluate (lang body)
-;;   "Don't confirm execution for selected languages."
-;;   (not (member lang
-;;                '("shell"
-;;                  "sh"
-;;                  "C"
-;;                  "python"
-;;                  "rust"
-;;                  "R"))))
-
-;; (setq org-confirm-babel-evaluate  #'my-prelude/org-confirm-babel-evaluate)
-;; NOTE: Patching with blanket statement for now. Unsure why my selective
-;;   code above isn't working...
 (setq org-confirm-babel-evaluate nil)
 
 ;; Add custom blocks to the beginning of new/empty org mode files:
