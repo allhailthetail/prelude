@@ -15,86 +15,65 @@
 echo "Example Shell Script..."
 #+end_src
 
-* Source Code
-** Include Block
+* ~Foo Implementation
 
-[[https://cplusplus.com/reference/][C++ Library Reference]]
+NOTE: Include whatever is needed to make foo work...
 
-#+name: include
-#+begin_src cpp
-// Imported libraries and headers:
+#+name: _implementation
+#+begin_src cpp :main no :mkdirp yes :tangle src/foo.cpp :comments noweb
+// include header itself...
+#include "foo.hpp"
+
+// any other dependencies needed for this "module's" code...
 #include <iostream>
+#include <string>
+
+namespace foo
+{
+  //Example bar function
+  void bar() {
+    std::string helloWorld { "Hello World" };
+    std::cout << helloWorld << '\n';
+  }
+
+} // end namespace foo
 #+end_src
+* ~Foo Header
 
-** Methods
-** Main
+NOTE: Includes in a header should only include what's necessary to define the functions exposed therein.
 
+#+name: _header
+#+begin_src cpp :main no :mkdirp yes :tangle src/foo.hpp :comments noweb
+#pragma once
+
+namespace foo
+{
+  // declare the function
+  void bar();
+} // end header
+#+end_src
+* Main
+[[file:Makefile][GOTO: Makefile]]
 [[file:src/main.cpp][GOTO: main.cpp]]
 
-#+name: fn_main
+#+name: main
 #+begin_src cpp :eval true :mkdirp yes :tangle src/main.cpp :results output :comments noweb
-<<include>>
+#include <iostream>
+#include "foo.hpp"
 
- // Begin Program:
-int main() {
+ // begin main
+int main()
+{
 
-    // Exit Successfully
-    return 0;
- }
+  foo::bar();
+
+  // exit successfully
+  return 0;
+
+} // end main
 #+end_src
 
-* Compile Program
-
-[[file:Makefile][GOTO: Makefile]]
-
-#+name: make
-#+begin_src sh :results silent
-# make                     # Make All (no debug)
-make debug && make build   # Make (with debug)
-#+end_src
-
-#+name: clean
-#+begin_src sh :results silent
-make clean
-#+end_src
-
-* GDB Scripts
-
-[[file:main.gdb][GOTO: main.gdb]]
-
-#+name: gdb
-#+begin_src gdb :noeval :mkdirp yes :tangle debug/main.gdb
-####################################
-# Turn on logging:
-set logging on
-set logging file debug/debug_log.txt
-set logging overwrite on
-
-# Don't try to download debug info:
-set debuginfod enabled off
-
-# Enable Graphical mode:
-# tui enable
-
-# Load program:
-file bin/main
-
-# Script Begins:
-echo \n\nBegin Debug Script:\n\n
-####################################
-# Execute via:
-# gdb -x <script.gdb>
-#
-# (or)
-#
-# gdb <ret>
-#  > source <script.gdb>
-####################################
-
-# Insert Commands after this line:
-break main
-run
-#+end_src
+#+RESULTS: main
 
 * Run
 #+name: sh_run_main

@@ -1,29 +1,54 @@
-all: build
+#=== Project‐specific settings: edit these as needed ==========================
 
-build: dirs main
-	@echo "building executables from object files:"
-	g++ build/main.o -o bin/main
-	ln -sf bin/main main
+# The compiler you want to use (gcc, clang, icc, etc.)
+CXX        := g++
 
-debug: dirs
-	@echo "generating object file with debug symbols:"
-	g++ src/main.cpp -g -c -o build/main.o
+# Compiler flags:
+#  -std=c++17 or c++20 or whatever standard you need
+#  -Wall/Wextra/… your warning levels
+#  -g or -O2 or -O3
+#  -I<path> for any non‐system include directories
+CXXFLAGS   := -std=c++20 -Wall -Wextra -g \
+              -I$(HOME)/.local/include
 
-	@echo "building executables from object files:"
-	g++ build/main.o -o bin/main
-	ln -sf bin/main main
+# Linker flags:
+#  -L<path> for any non‐system library directories
+LDFLAGS    := -L$(HOME)/.local/lib
 
-dirs:
-	@echo "Creating dirs:"
-	mkdir -p build/
-	mkdir -p bin/
-	mkdir -p debug/
+# Libraries to link against:
+#  -lfoo -lbar …
+LIBS       := -lboost_program_options
 
-main:
-	@echo "generating object file main.o:"
-	g++ src/main.cpp -c -o build/main.o
+# List of your project’s source files
+SRC        := src/main.cpp src/foo.cpp
 
+# Name of the final executable
+TARGET     := main
+
+#=============================================================================
+
+# Internal derived variables – you rarely need to change these
+OBJ        := $(SRC:.cpp=.o)
+
+# Default target: build the executable
+all: $(TARGET)
+
+# Link step: takes object files and creates $(TARGET)
+$(TARGET): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
+
+# Debug build override:
+#  * Switches compiler (to clang++)
+#  * Changes optimization/debug flags
+#  * Rebuilds the same $(TARGET)
+debug: CXX      := clang++
+debug: CXXFLAGS := -std=c++20 -O0 -g -Wall -Wextra \
+                   -I$(HOME)/.local/include
+debug: clean $(TARGET)
+
+# Mark phony targets so make won't confuse them with files
+.PHONY: all debug clean
+
+# Remove the executable and object files
 clean:
-	@echo "cleaning up:"
-	rm -rf main \
-	       build/ bin/ debug/
+	rm -f $(TARGET) $(OBJ)

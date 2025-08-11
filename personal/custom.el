@@ -7,8 +7,8 @@
  '(org-safe-remote-resources '("\\`https://fniessen\\.github\\.io\\(?:/\\|\\'\\)"))
  '(package-selected-packages
    '(ace-window ag anzu browse-kill-ring cargo company-anaconda consult
-                crux diff-hl diminish discover-my-major easy-kill
-                elisp-slime-nav epl ess exec-path-from-shell
+                crux csv-mode diff-hl diminish discover-my-major
+                easy-kill elisp-slime-nav epl ess exec-path-from-shell
                 expand-region flycheck-rust gist git-modes
                 git-timemachine guru-mode hl-todo htmlize
                 imenu-anywhere js2-mode json-mode lsp-ui magit
